@@ -1,0 +1,170 @@
+
+#Basico para comenzar#
+
+
+#Pedir que nos muestre todas las bases de datos. Una base de datos puede contener varias tabalas.
+show databases 
+
+#Para ubicarnos en una base de datos
+USE nombrebase
+
+#Al estar ubicados en la una base podemos crear una nueva tabla sin filas especificando los nombres de las columnas y los tipos de variables que contienen dichas columnas
+CREATE TABLE EMPLEADOS (                 #Se crea la tabla llamada empleados
+id INT AUTO_INCREMENT PRIMARY KEY,       #se crea la var id que es un entero que va aumentando y es un identificador unico
+nombre VARCHAR(50),                      # nombre es de tipo character y tiene maximo 50 caracteres
+edad INT,                 
+salario DECIMAL(10,2))                   #salario un decimal con maximo 10 digitos totales y maximo dos decimales
+
+#################
+
+
+##Consultas basicas##
+
+##Cuando estoy dentro de una base de datos y quiero seleccionar información de una tabla especifica uso select
+
+select * from nombretabla                             #El * significa todas las variables
+selecto var1, var2 from nombre tabla                   #seleccionar solo las var 1 y 2
+
+
+## filtros para obtener información que cumpla con condiciones se hacen con el comando WHERE
+
+select * from nombretabla where salario > 300
+select * from nombretabla where nombre = 'nombre'                                        #para variables tipo character se usan comillas simples
+
+select * from nombretabla where salario > 300 AND nombre = 'nombre'                      #multiples condiciones con AND o OR 
+select * from nombretabla where salario > 300 OR nombre = 'nombre'
+
+## AND y OR ##
+select * from nombretabla where salario > 300 AND nombre = 'nombre' AND id > 150         #cumplir multiples condiciones 
+select * from nombretabla where salario > 300 OR nombre = 'nombre' OR id > 150           #Condiciones alternativas
+
+select * from nombre tabla where (salario > 300 AND edad > 21) OR nombre = 'nombre?       #combinar AND y OR. Esta consulta me trae las filas en donde el salario es mayor a 300 y la edad es mayor a 21 y tambien las que el nombre es igual a nombre
+
+
+## DISTINCT se usa para ver los valores de una columna como si fueran valores unicos.
+
+select distinct var1 from nombretabla                  # Si mi var 1 dice que tan satisfecho esta del 1 al 5 con el servicio me saldran 5 filas con los numeros del 1 al 5 aunque tenga 5000 filas en la tabla
+
+
+## ORDER BY se usa para ordenar la tbla que obtenemos de la consulta por una o varias variables
+
+select * from nombretabla order by var1  
+select * from nombretabla order by var1 desc     #Ordena la tabla por la variable 1 en orden descendente
+
+SELECT * FROM empleados
+ORDER BY nombre ASC, salario DESC                 #Ordena las filas de forma ascendente por el nombre, si hay dos nombres iguales desempata con el salario ordenando de forma descendente
+
+
+## LIKE se usa para hacer busquedas en columnas tipo texto con algo similar a expresiones regulares
+
+SELECT * FROM nombretabla WHERE var1 LIKE '%@gmail.com'     #Selecciona todos los correos del dominio gmail
+SELECT * FROM nombretabla WHERE var1 LIKE 'penta%'          #Selecciona todo lo que comience el texto por "penta"
+SELECT * FROM nombretabla WHERE var1 LIKE '%@%'             #Selecciona si hay un @
+SELECT * FROM nombretabla WHERE var1 LIKE '___'             #Seleccion si la cadena de texto tiene 3 caracteres (son 3 barras al piso)
+
+
+## NOT es una Negacion para que la busqueda me traiga lo opuesto a lo que estoy escribiendo
+
+
+SELECT * FROM nombretabla WHERE NOT salario = 10.000                          #Selecciona todo excepto las filas donde salario = 10.000 
+
+SELECT * FROM nombretabla WHERE (NOT salario = 10.000) OR id >120             #NOT solo se aplica a la sentencia que está inmediatamente despues, por lo tanto las dos consultas escritas aca traerian exactamente la misma información
+SELECT * FROM nombretabla WHERE NOT salario = 10.000 OR id >120             
+
+
+SELECT * FROM nombretabla WHERE NOT (salario = 20 AND id < 120)              #Si se usa NOT antes de un parentesis se aplicará a todo lo que este dentro del parentesis. Recuerde la Ley de morgan
+SELECT * FROM nombretabla WHERE salario <> 20 OR id >= 120                   # NOT (A OR B) = NOT A AND NOT B
+                                                                             # NOT (A AND B) = NOT A OR NOT B
+
+
+##LIMIT sirve para escoger el numero de filas de mi consulta 
+
+SELECT * FROM nombretabla LIMIT 2                                         # Seleccione toda la tabla pero lo limite solo a las dos primeras filas
+
+
+#####
+
+#Modificadores
+
+## IS NULL se usa para hacer consultas buscando valores nulos o su negativo con NOT
+
+SELECT * FROM nombretabla WHERE VAR1 IS NULL               #Selecciona las variables donde la var 1 contiene valores
+SELECT * FROM nombretabla WHERE VAR1 IS NOT NULL           #Selecciona las variables donde la var 1 es nula
+
+
+## MIN MAX se usa para seleccionar minimos o maximos
+
+SELECT MAX(VAR1) FROM nombretabla         #Seleciona valor maximo o minimo de VAR1
+SELECT MIN(VAR1) FROM nombretabla         #Si se usa no se puede seleccionar otra variable de la tabla para la consulta, solo sirve para saber el valor maximo o minimo y ya
+
+## COUNT, SUM y AVG sirve para hacer el calculo que cada funcion dice en la variable seleccionada
+
+SELECT COUNT(var1) FROM nombretabla     #Cuenta la cantidad de filas con valor en la var1. Si no hay NAN en VAR1 count me da el numero de filas
+SELECT SUM(var1) FROM nombretabla       #Suma el valor de cada fila
+SELECT AVG(var1) FROM nombretabla       #Promedia los valores de cada fila
+
+
+## IN se usa para filtrar una columna por los valores de una lista especifica
+
+SELECT * FROM nombretabla where nombre IN ('Andres', 'salome', etc)        #Trae las filas con esos nombres especificos, la coincidencia debe ser exacta
+SELECT * FROM nombretabla where salario IN (2000, 1000, 50)
+
+
+## BETWEEN se usa para filtrar una columna por un rango de valores especifico
+        
+SELECT * FROM nobretabla WHERE salario BETWEEN 100 AND 10000               #Trae las filas que tienen salario entre 100 y 10000
+
+
+## ALIAS o AS Sirve para renombrar una columna, no en la tabla de la base de datos sino en la consulta que estoy realizando
+
+#Se usa poniendo despues del nombre de la columna AS 'nombre nuevo'. Debe ser al momento de llamar la columna 
+
+SELECT VAR1, VAR2 AS 'xd2' FROM nombre tabla
+
+## CONCAT se usa para concatenar una columna con otra. Se crea una nueva columna 
+
+SELECT CONCAT(nombre,' ',apellido) AS 'NombreCompleto' FROM nombretabla           #Realiza la consulta con una sola columna que tiene el alias Nombrecompleto creada concatenando nombre y apellido
+
+
+### GROUP BY sirve para agrupar filas por el valor de una columna. Necesito escoger una funcion para aplicar a la fila por la que estoy agrupando
+
+Nombre tabla: Empleados
+id	nombre	     departamento	   salario
+1	  Ana	           Ventas	         3000
+2	  Juan	         Ventas	          3500
+3	  Pedro	          Finanzas	      4000
+4	  Luisa	          Finanzas	      4200
+5	  María	         IT	              5000
+
+#Si tengo esta tabla puedo usar grupo by para contar los empleados por departamento
+
+SELECT departamento, COUNT(nombre) FROM empleados GROUP BY departamento                                      # Selecciona dos variables (departamento y la variable transformada de contar los nombres) de la base empleados y los agrupa por departamento
+
+#Puedo sumar salarios por departamento
+
+SELECT departamento, SUM(salario) FROM empleados GROUP BY departamento                                                   #Puedo ponerle un alias a SUM(salario) para que el nombre de la columna no sea SUM(salario)
+
+#Puedo sacar el salario maximo y minimo por departamento
+
+SELECT departamento, MAX(salario) AS 'Salario MAX', MIN(salario) AS 'Salario MIN' FROM empleados GROUP BY departamento    # Agrupe dos variables al tiempo
+
+# WHERE se usa antes de GROUP BY y HAVING se usa despues
+
+
+#HAVING se usa para aplicar filtros despues de las agrupaciones hechas por GROUP BY 
+
+SELECT departamento, COUNT(nombre) AS '# empleados' FROM empleados GROUPED BY departamento HAVING COUNT(nombre) > 1             #Esto crea una tabla con la cantidad de empleados por departamento y de esa tabla deja solamente los departamentos 
+                                                                                                                                   que tienen más de un empleado
+
+
+
+SELECT departamento, SUM(salario) AS 'Salario x departamento' FROM empleados                                                        #Esto crea una tabla con la suma de los salarios de cada empleado por departamento
+
+SELECT departamento, SUM(salario) AS 'Salario x departamento' FROM empleados GROUP BY departamento HAVING SUM(salario) > X              #Esto crea la misma tabla anterior pero deja solo los departamentos donde el salario total es mayor a X
+
+SELECT departamento, SUM(salario) AS 'Salario x departamento' FROM empleados WHERE salario > Y                                  # Esto crea una tabla con la suma de los salarios de cada empleado por departamento pero solo tiene en cuenta
+                                                                                                                                  para la creación de dicha tabla los salarios mayores a Y
+
+
+
+
