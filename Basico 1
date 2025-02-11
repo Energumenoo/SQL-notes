@@ -8,6 +8,12 @@ show databases
 #Para ubicarnos en una base de datos
 USE nombrebase
 
+
+#Ya ubicados en una base de datos podemos ver todas las tabas que contiene con
+show tables
+
+
+
 #Al estar ubicados en la una base podemos crear una nueva tabla sin filas especificando los nombres de las columnas y los tipos de variables que contienen dichas columnas
 CREATE TABLE EMPLEADOS (                 #Se crea la tabla llamada empleados
 id INT AUTO_INCREMENT PRIMARY KEY,       #se crea la var id que es un entero que va aumentando y es un identificador unico
@@ -126,7 +132,7 @@ SELECT VAR1, VAR2 AS 'xd2' FROM nombre tabla
 SELECT CONCAT(nombre,' ',apellido) AS 'NombreCompleto' FROM nombretabla           #Realiza la consulta con una sola columna que tiene el alias Nombrecompleto creada concatenando nombre y apellido
 
 
-### GROUP BY sirve para agrupar filas por el valor de una columna. Necesito escoger una funcion para aplicar a la fila por la que estoy agrupando
+#### GROUP BY sirve para agrupar filas por el valor de una columna. Necesito escoger una funcion para aplicar a la fila por la que estoy agrupando
 
 Nombre tabla: Empleados
 id	nombre	     departamento	   salario
@@ -151,7 +157,7 @@ SELECT departamento, MAX(salario) AS 'Salario MAX', MIN(salario) AS 'Salario MIN
 # WHERE se usa antes de GROUP BY y HAVING se usa despues
 
 
-#HAVING se usa para aplicar filtros despues de las agrupaciones hechas por GROUP BY 
+## HAVING se usa para aplicar filtros despues de las agrupaciones hechas por GROUP BY 
 
 SELECT departamento, COUNT(nombre) AS '# empleados' FROM empleados GROUPED BY departamento HAVING COUNT(nombre) > 1             #Esto crea una tabla con la cantidad de empleados por departamento y de esa tabla deja solamente los departamentos 
                                                                                                                                    que tienen más de un empleado
@@ -164,6 +170,51 @@ SELECT departamento, SUM(salario) AS 'Salario x departamento' FROM empleados GRO
 
 SELECT departamento, SUM(salario) AS 'Salario x departamento' FROM empleados WHERE salario > Y                                  # Esto crea una tabla con la suma de los salarios de cada empleado por departamento pero solo tiene en cuenta
                                                                                                                                   para la creación de dicha tabla los salarios mayores a Y
+
+
+#### CASE es un comando condicional que sirve para varias cosas 
+
+## Crear una columna basada en condiciones
+
+SELECT *,                                                           #Seleccionamos todas las variables y ponemos coma antes de abrir el case
+CASE WHEN salario > 3000 THEN 'Alto'                                #Primera condicion aplicada sobre una variable y el valor de la nueva columna creada con case
+CASE WHEN salario BETWEEN 3000 AND 1000 THEN 'Medio'                #Segunda condicion y su valor
+ELSE 'Bajo'                                                         #cuando ya no hay mas condiciones se pone ELSE para cerrar el intervalo
+END AS 'Nivel salarial'                                             #se cierra el CASE con END y se renombra la nueva columna con alias 
+FROM empleados                                                      #se escoge la tabla
+
+
+## Filtros condicionales
+
+SELECT * FROM EMPLEADOS                                            #seleccionamos la base y aplicamos un filtro condicional para dejar solo a 
+WHERE CASE WHEN departamento = 'ventas' THEN salario > 3000        # las filas del departamento ventas si su salario es mayor a 3000
+CASE ELSE salario > 2000                                           # y las filas de los demás departamentos si su salario es mayor a 2000
+END
+
+
+##  GROUP BY + CASE  Agrupar con group by por una categoria que voy a definir con CASE
+
+SELECT *,
+CASE WHEN salario > 5000 THEN 'salario alto'
+CASE WHEN salario BETWEEN 5000 AND 3000 THEN 'salario medio'
+ELSE 'salario bajo'
+END AS 'nievel salarial'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
