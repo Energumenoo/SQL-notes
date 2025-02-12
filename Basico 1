@@ -98,6 +98,11 @@ SELECT * FROM nombretabla WHERE VAR1 IS NULL               #Selecciona las varia
 SELECT * FROM nombretabla WHERE VAR1 IS NOT NULL           #Selecciona las variables donde la var 1 es nula
 
 
+# IFNULL sirve para remplazar los NA por un valor especifico
+
+SELECT var1, var2, IFNULL(VAR3, valorespecifico) FROM nombretabla   #selecciono las variables 1,2 y 3 y los valores nulos de la var 3 se remplazan por el valor que yo quiera
+
+
 ## MIN MAX se usa para seleccionar minimos o maximos
 
 SELECT MAX(VAR1) FROM nombretabla         #Seleciona valor maximo o minimo de VAR1
@@ -194,11 +199,22 @@ END
 
 ##  GROUP BY + CASE  Agrupar con group by por una categoria que voy a definir con CASE
 
-SELECT *,
-CASE WHEN salario > 5000 THEN 'salario alto'
-CASE WHEN salario BETWEEN 5000 AND 3000 THEN 'salario medio'
-ELSE 'salario bajo'
-END AS 'nievel salarial'
+select
+case when cantidad_rentas > 30 then 'Cinéfilo'
+else 'No cinéfilo'
+end as cinefilo, 
+count(*) as total_clientes
+from clientes_rentas
+group by cinefilo
+
+
+
+
+
+
+
+
+
 
 
 
