@@ -1,0 +1,22 @@
+
+### INNER JOIN junta la información que coincide de dos tablas linkeando por una variable que sirva de clave externa
+    Las filas que obtenemos son únicamente las que tienen información en ambas tablas. Las filas que solo tienen info en una tabla no son tenidas en cuenta en el output del inner join
+
+
+
+
+SELECT tabla2.varx, tabla1.vary FROM tabla1                          #Selecciono la primera tabla para el join y las variables de ambas tablas que necesito
+INNER JOIN tabla 2                                                   #Llamo el join y pongo la segunda tabla
+ON tabla1.varlink1 = tabla2.varlink2                                 #Especifico cual es la variable de cada tabla que se usará para linkear
+
+
+
+### LEFT JOIN junta la informacion que coincide de dos tablas linkeando por una variable que sirva de clave externa
+              Se mantiene toda la información de la primera tabla así no coincida con nada en la segunda pero de la segunda solo se queda lo que coincida en la primera 
+
+SELECT tabla2.varx, tabla1.vary FROM tabla1                          #Selecciono la primera tabla para el join y las variables de ambas tablas que necesito
+LEFT JOIN tabla 2                                                   #Llamo el join y pongo la segunda tabla
+ON tabla1.varlink1 = tabla2.varlink2                                 #Especifico cual es la variable de cada tabla que se usará para linkear
+
+
+
