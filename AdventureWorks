@@ -1,0 +1,21 @@
+
+
+#Tengo dos tablas. Una tabla con el total de las ventas (carrito) y el lugar donde fueron realizados y otra con el detalle de las ventas (cada item y precio del carrito) en donde está el total pagado por cada producto
+
+#Quiero en una sola tabla el total gastado en cada id para despues agrupar la plata por territorio 
+
+
+SELECT 
+    b.TerritoryID,                                 #selecciono la variable que quiero en mi tabla final
+    SUM(a.LineTotal) AS VentaTotal                 #selecciono la variable que quiero en mi tabla final 
+FROM Sales.SalesOrderDetail AS a                   #selecciono la primera tabla
+INNER JOIN Sales.SalesOrderHeader AS b             #selecciono la segunda tabla
+ON a.SalesOrderID = b.SalesOrderID                 #selecciono variable link
+GROUP BY b.TerritoryID                             #selecciono la variable por la que voy a agrupar
+order by TerritoryID                               #Ordeno por estetica
+
+
+#Se hace todo de una vez, no se saca primero la tabla con el total pagado por id para despues agrupar por territorio 
+#Se seleccionan las dos variables que quiero en mi tabla, como son de dos tablas distintas hago el join
+#Y como una de las variables que me interesa esta siendo transformada por SUM() debo agrupar 
+
