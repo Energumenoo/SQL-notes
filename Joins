@@ -19,4 +19,14 @@ LEFT JOIN tabla 2                                                   #Llamo el jo
 ON tabla1.varlink1 = tabla2.varlink2                                 #Especifico cual es la variable de cada tabla que se usará para linkear
 
 
+## Varios joins al tiempo
+
+SELECT
+a.orderid as ID,                                       #Selecciono las variables que necesito de las 3 tablas
+a.linetotal,                                           #Selecciono las variables que necesito de las 3 tablas
+b.currencyrateID,                                      #Selecciono las variables que necesito de las 3 tablas
+c.averagerate,                                         #Selecciono las variables que necesito de las 3 tablas
+FROM tabla1 as a,                                      #Selecciono la primera tabla
+join tabla2 as b ON a.orderid = b.orderid              #Join y link con la segunda
+join tabla3 as c on c.rateid = b.rateid                #join y link de la segunda con la tercera
 
