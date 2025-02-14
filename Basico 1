@@ -4,6 +4,10 @@
 
 #Pedir que nos muestre todas las bases de datos. Una base de datos puede contener varias tabalas.
 show databases 
+#En managment studio se usa
+SELECT name FROM sys.databases;
+
+
 
 #Para ubicarnos en una base de datos
 USE nombrebase
