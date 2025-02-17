@@ -134,6 +134,13 @@ Person.Person ON Sales.SalesOrderHeader.SalesPersonID = Person.Person.BusinessEn
 
 
 
+### Hacer una consulta con las ventas acumuladas de cada mes
+
+SELECT Count(SalesOrderID) as Ventas_totales, YEAR(OrderDate) as año, MONTH(OrderDate) as mes
+from Sales.SalesOrderHeader as T1 
+GROUP BY YEAR(OrderDate), MONTH(OrderDate)
+ORDER BY YEAR(OrderDate), MONTH(OrderDate)
+
 
 
 
