@@ -141,6 +141,21 @@ SELECT VAR1, VAR2 AS 'xd2' FROM nombre tabla
 SELECT CONCAT(nombre,' ',apellido) AS 'NombreCompleto' FROM nombretabla           #Realiza la consulta con una sola columna que tiene el alias Nombrecompleto creada concatenando nombre y apellido
 
 
+
+## Desagregar una columna de fecha con YEAR(), MONTH(), DAY(), HOUR(), MINUTE() y SECOND()
+#Si tengo una columna con la fecha de la forma año-mes-día-hora puedo desagregar para tener cada variable en una columna distinta
+
+SELECT fecha, YEAR(fecha),           
+MONTH(fecha),
+DAY(fecha),
+HOUR(fecha),
+MINUTE(fecha),
+SECOND(fecha)
+FROM nombretabla
+
+
+
+
 #### GROUP BY sirve para agrupar filas por el valor de una columna. Necesito escoger una funcion para aplicar a la fila por la que estoy agrupando
 
 Nombre tabla: Empleados
