@@ -19,3 +19,121 @@ order by TerritoryID                               #Ordeno por estetica
 #Se seleccionan las dos variables que quiero en mi tabla, como son de dos tablas distintas hago el join
 #Y como una de las variables que me interesa esta siendo transformada por SUM() debo agrupar 
 
+
+###### Vistas para análisis de datos ######
+
+CREATE VIEW compras_powerbi AS                                                           #Crear vista
+SELECT 
+a.PurchaseOrderID as OrdenID,                                                             #Escoger variables relevantes y renombrarlas si es el caso
+b.OrderDate as FechaOrden,
+b.ShipDate as FechaEnvio,
+a.DueDate as FechaVencimiento,
+a.ProductID,
+d.Name as Descripcion,
+a.OrderQty as CantidadPedida,
+a.ReceivedQty as CantidadRecibida,
+a.RejectedQty as CantidadDevuelta,
+a.UnitPrice as PrecioUnitario,
+a.LineTotal as MontoTotal,
+b.VendorID as ProveedorID,
+e.Name as Proveedor,
+c.AverageLeadTime
+FROM Purchasing.PurchaseOrderDetail a                                                       #Escoger primera tabla y continuar con los joins
+JOIN Purchasing.PurchaseOrderHeader b on a.PurchaseOrderID = b.PurchaseOrderID
+JOIN Purchasing.ProductVendor c on a.ProductID = c.ProductID
+JOIN Production.Product d on c.ProductID = d.ProductID
+JOIN Purchasing.Vendor e on b.VendorID = e.BusinessEntityID
+
+
+
+CREATE VIEW RH_PowerBI as
+Select 
+a.BusinessEntityID,
+a.StartDate as fechaContrato,
+a.EndDate as finContrato,
+b.GroupName as Gerencia,
+b.Name as Departamento,
+c.FirstName + ' ' + c.LastName as NombreEmpleado,
+d.JobTitle,
+d.Gender,
+d.MaritalStatus,
+d.BirthDate
+FROM HumanResources.EmployeeDepartmentHistory a
+join HumanResources.Department b on a.DepartmentID = b.DepartmentID
+join Person.Person c on a.BusinessEntityID = c.BusinessEntityID
+join HumanResources.Employee d on a.BusinessEntityID = d.BusinessEntityID
+
+
+
+CREATE VIEW Inevntario_PowerBI as
+SELECT 
+a.ModifiedDate as FcehaEntrada,
+a.ProductID,
+b.Name as producto,
+d.ProductModelID,
+d.Name as ProductLine,
+c.LocationID,
+c.Name as location,
+a.Quantity
+FROM Production.ProductInventory a
+join Production.Product b on a.ProductID =b.ProductID
+join Production.Location c on a.LocationID = c.LocationID
+join Production.ProductModel d on b.ProductModelID =d.ProductModelID
+
+
+
+CREATE VIEW Produccion_PowerBI as
+Select 
+a.WorkOrderID,
+a.StartDate as FechaInicio,
+a.EndDate as FechaFin,
+a.DueDate as FechaVencimiento,
+d.LocationID,
+d.Name as Location,
+a.ProductID,
+b.Name as producto,
+e.ProductModelID,
+e.Name as ProductModel,
+a.OrderQty as cantidad,
+a.StockedQty as almacenado,
+b.StandardCost as CostoStandard,
+b.ListPrice as precioLista
+FROM Production.WorkOrder a
+JOIN Production.Product b on a.ProductID = b.ProductID
+JOIN Production.WorkOrderRouting c on a.WorkOrderID = c.WorkOrderID
+JOIN Production.Location d on c.LocationID = d.LocationID
+JOIN Production.ProductModel e on b.ProductModelID = e.ProductModelID
+
+
+
+SELECT     
+Sales.SalesOrderDetail.SalesOrderID AS orderID,                                  #Selecciona variables
+Sales.SalesOrderDetail.OrderQty AS Cantidad,
+Sales.SalesOrderDetail.ProductID,
+Production.Product.Name AS producto,
+Sales.SalesOrderDetail.UnitPrice AS precioUnitario,
+Sales.SalesOrderDetail.UnitPriceDiscount AS Descuento,
+Sales.SalesOrderDetail.LineTotal AS Total,
+Sales.SalesOrderHeader.Status,
+Sales.SalesOrderHeader.OrderDate AS Fecha,
+Sales.SalesOrderHeader.CustomerID,
+Sales.SalesOrderHeader.SalesPersonID,
+Person.Person.FirstName + ' ' + Person.Person.LastName AS vendedor,
+Sales.SalesTerritory.Name AS Region,
+Sales.SalesTerritory.TerritoryID
+FROM        
+Sales.SalesOrderDetail                                                                                        #Seleccionar primera tabla y continuar con los joins                                 
+INNER JOIN
+Sales.SalesOrderHeader ON Sales.SalesOrderDetail.SalesOrderID = Sales.SalesOrderHeader.SalesOrderID 
+INNER JOIN 
+Production.Product ON Sales.SalesOrderDetail.ProductID = Production.Product.ProductID 
+INNER JOIN 
+Sales.SalesTerritory ON Sales.SalesOrderHeader.TerritoryID = Sales.SalesTerritory.TerritoryID AND Sales.SalesOrderHeader.TerritoryID = Sales.SalesTerritory.TerritoryID AND Sales.SalesOrderHeader.TerritoryID = Sales.SalesTerritory.TerritoryID 
+LEFT OUTER JOIN
+Person.Person ON Sales.SalesOrderHeader.SalesPersonID = Person.Person.BusinessEntityID
+
+
+
+
+
+
