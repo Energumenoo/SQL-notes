@@ -87,10 +87,10 @@ SELECT * FROM nombretabla WHERE salario <> 20 OR id >= 120                   # N
                                                                              # NOT (A AND B) = NOT A OR NOT B
 
 
-##LIMIT sirve para escoger el numero de filas de mi consulta 
+##LIMIT sirve para escoger el numero de filas de mi consulta ## En SQL managment studio se usa TOP
 
 SELECT * FROM nombretabla LIMIT 2                                         # Seleccione toda la tabla pero lo limite solo a las dos primeras filas
-
+SELECT TOP 2 * FROM nombretabla                                           # Seleccione toda la tabla pero lo limite solo a las dos primeras filas                           
 
 #####
 
