@@ -250,6 +250,14 @@ MOD(6/2)= 0
 
 
 
+# REGEXP_LIKE(VAR, 'Patron'): Permite usar expresiones regulares dentro de SQL 
+#Lo usé para aplicar una condición en base a una expresion regular
+
+REGEXP_LIKE(VAR1, ‘^[aeiou].*[aeiou]$’) =T o F dependiendo de si el texto de VAR1 cumple la condicion de la
+expresión regular
+
+
+
 
 
 
