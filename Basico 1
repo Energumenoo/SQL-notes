@@ -98,8 +98,8 @@ SELECT TOP 2 * FROM nombretabla                                           # Sele
 
 ## IS NULL se usa para hacer consultas buscando valores nulos o su negativo con NOT
 
-SELECT * FROM nombretabla WHERE VAR1 IS NULL               #Selecciona las variables donde la var 1 contiene valores
-SELECT * FROM nombretabla WHERE VAR1 IS NOT NULL           #Selecciona las variables donde la var 1 es nula
+SELECT * FROM nombretabla WHERE VAR1 IS NULL               #Selecciona las variables donde la var 1 es nula
+SELECT * FROM nombretabla WHERE VAR1 IS NOT NULL           #Selecciona las variables donde la var 1 contiene valores
 
 
 # IFNULL sirve para remplazar los NA por un valor especifico
