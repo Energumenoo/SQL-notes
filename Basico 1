@@ -36,13 +36,24 @@ select * from nombretabla                             #El * significa todas las 
 selecto var1, var2 from nombre tabla                   #seleccionar solo las var 1 y 2
 
 
-## filtros para obtener información que cumpla con condiciones se hacen con el comando WHERE
+## WHERE ## filtros para obtener información que cumpla con condiciones se hacen con el comando WHERE
 
 select * from nombretabla where salario > 300
 select * from nombretabla where nombre = 'nombre'                                        #para variables tipo character se usan comillas simples
 
 select * from nombretabla where salario > 300 AND nombre = 'nombre'                      #multiples condiciones con AND o OR 
 select * from nombretabla where salario > 300 OR nombre = 'nombre'
+
+## Condiciones despues de un where
+
+Una condición lógica que evalua a TRUE/FALSE 
+#comparaciones#
+= <> < > >= <= 
+#Operadores lógicos
+ANd Or NOT
+
+#Funciones con comparaciones
+MOD, Count, upper
 
 ## AND y OR ##
 select * from nombretabla where salario > 300 AND nombre = 'nombre' AND id > 150         #cumplir multiples condiciones 
