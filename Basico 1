@@ -241,6 +241,13 @@ group by cinefilo
 
 
 
+## FUNCIONES QUE PODRIAN SER UTILES ##
+
+# MOD(X, Y): Calcula el residuo de la división de x/y
+#Lo usé una vez para consultar solo los valores pares en una columna
+MOD(2/2) = 0
+MOD(6/2)= 0
+
 
 
 
