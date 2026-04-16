@@ -127,7 +127,7 @@ SELECT MIN(VAR1) FROM nombretabla         #Si se usa no se puede seleccionar otr
 
 SELECT COUNT(var1) FROM nombretabla     #Cuenta la cantidad de filas con valor en la var1. Si no hay NAN en VAR1 count me da el numero de filas
 SELECT SUM(var1) FROM nombretabla       #Suma el valor de cada fila
-SELECT AVG(var1) FROM nombretabla       #Promedia los valores de cada fila
+SELECT AVG(var1) FROM nombretabla       #Calcula el promedio de la columna var1
 
 
 ## IN se usa para filtrar una columna por los valores de una lista especifica
