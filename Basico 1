@@ -226,6 +226,19 @@ WHERE CASE WHEN departamento = 'ventas' THEN salario > 3000        # las filas d
 CASE ELSE salario > 2000                                           # y las filas de los demás departamentos si su salario es mayor a 2000
 END
 
+##CASE para crear una columna categorica 
+
+SELECT
+  cantidad_rentas,
+  var2,
+  var3,
+  CASE 
+    WHEN cantidad_rentas > 50 THEN 'Super cinéfilo'
+    WHEN cantidad_rentas > 30 THEN 'Cinéfilo'
+    WHEN cantidad_rentas > 10 THEN 'Casi cinéfilo'
+    ELSE 'No cinéfilo'
+  END AS cinefilo
+FROM clientes_rentas;
 
 ##  GROUP BY + CASE  Agrupar con group by por una categoria que voy a definir con CASE
 
